@@ -4,7 +4,12 @@ const prisma = new PrismaClient();
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const user = await prisma.user.create({ data: { name: "Kyle" } });
+    const { name } = req.body;
+    const user = await prisma.user.create({
+      data: {
+        name,
+      },
+    });
     res.json(user);
   } catch (error) {
     console.error((error as Error).message);
