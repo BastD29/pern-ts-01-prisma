@@ -3,5 +3,6 @@ declare namespace NodeJS {
     NODE_ENV: "development" | "production" | "test" | "local" | "staging";
     PORT: string;
     ALLOWED_ORIGIN: string;
+    DATABASE_URL: string;
   }
 }
