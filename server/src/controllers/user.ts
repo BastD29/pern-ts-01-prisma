@@ -25,4 +25,32 @@ const getUsers = async (req: Request, res: Response) => {
   }
 };
 
-export { createUser, getUsers };
+const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+    const user = await prisma.user.update({
+      where: { id: Number(id) },
+      data: {
+        name,
+      },
+    });
+    res.json(user);
+  } catch (error) {
+    console.error((error as Error).message);
+  }
+};
+
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const user = await prisma.user.delete({
+      where: { id: Number(id) },
+    });
+    res.json(user);
+  } catch (error) {
+    console.error((error as Error).message);
+  }
+};
+
+export { createUser, getUsers, updateUser, deleteUser };
