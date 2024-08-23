@@ -89,12 +89,15 @@ type UserActionType =
   | FetchUsersRequestActionType
   | FetchUsersSuccessActionType
   | FetchUsersFailureActionType
+  //
   | CreateUserRequestActionType
   | CreateUserSuccessActionType
   | CreateUserFailureActionType
+  //
   | UpdateUserRequestActionType
   | UpdateUserSuccessActionType
   | UpdateUserFailureActionType
+  //
   | DeleteUserRequestActionType
   | DeleteUserSuccessActionType
   | DeleteUserFailureActionType;

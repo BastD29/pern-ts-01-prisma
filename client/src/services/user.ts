@@ -29,6 +29,10 @@ type CreateUserParamsType = {
   name: string;
 };
 
+type UpdateUserParamsType = {
+  name: string;
+};
+
 const getUsers = async (): Promise<ApiResponseType<GetUsersResponseType>> =>
   fetcher({
     method: "get",
@@ -46,11 +50,11 @@ const createUser = async (
 
 const updateUser = async (
   id: string,
-  body: CreateUserParamsType
+  body: UpdateUserParamsType
 ): Promise<ApiResponseType<UpdateUserResponseType>> =>
   fetcher({
     method: "put",
-    url: `${USERS}${UPDATE}${id}`,
+    url: `${USERS}${UPDATE}/${id}`,
     body: { name: body.name },
   });
 
@@ -59,7 +63,7 @@ const deleteUser = async (
 ): Promise<ApiResponseType<DeleteUserResponseType>> =>
   fetcher({
     method: "delete",
-    url: `${USERS}${DELETE}${id}`,
+    url: `${USERS}${DELETE}/${id}`,
   });
 
 export { getUsers, createUser, updateUser, deleteUser };

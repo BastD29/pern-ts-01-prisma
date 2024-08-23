@@ -1,13 +1,16 @@
 import {
-  CREATE_USER_FAILURE,
-  CREATE_USER_REQUEST,
-  CREATE_USER_SUCCESS,
-  DELETE_USER_FAILURE,
-  DELETE_USER_REQUEST,
-  DELETE_USER_SUCCESS,
   FETCH_USERS_FAILURE,
   FETCH_USERS_REQUEST,
   FETCH_USERS_SUCCESS,
+  //
+  CREATE_USER_FAILURE,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  //
+  DELETE_USER_FAILURE,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  //
   UPDATE_USER_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
@@ -63,7 +66,9 @@ const reducer = (
       return {
         ...state,
         loading: false,
-        users: state.users?.filter((user) => user.id !== action.payload) || [],
+        users:
+          state.users?.filter((user) => String(user.id) !== action.payload) ||
+          [],
       };
     case FETCH_USERS_FAILURE:
     case CREATE_USER_FAILURE:

@@ -1,10 +1,15 @@
 import { FC } from "react";
 import { useUserContext } from "../../hooks/useUserContext";
+import { deleteUserAction } from "../../actions/user";
 import style from "./UsersList.module.scss";
 
 const UsersList: FC = () => {
-  const { state } = useUserContext();
+  const { state, dispatch } = useUserContext();
   const { error, users, loading } = state;
+
+  const handleDelete = (id: string) => {
+    deleteUserAction(id, dispatch);
+  };
 
   if (loading) {
     return <h2>Loading...</h2>;
@@ -25,7 +30,12 @@ const UsersList: FC = () => {
   return (
     <div className={style["users-list"]}>
       {users?.map((user) => (
-        <div key={user.id}>{user.name}</div>
+        <div key={user.id} className={style["users-list__item"]}>
+          <h3>{user.name}</h3>
+          <button onClick={() => handleDelete(user.id?.toString() || "")}>
+            Delete user
+          </button>
+        </div>
       ))}
     </div>
   );
