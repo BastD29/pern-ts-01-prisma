@@ -77,7 +77,7 @@ type DeleteUserRequestActionType = {
 
 type DeleteUserSuccessActionType = {
   type: typeof DELETE_USER_SUCCESS;
-  payload: number; // Assuming the payload is the user ID
+  payload: string;
 };
 
 type DeleteUserFailureActionType = {

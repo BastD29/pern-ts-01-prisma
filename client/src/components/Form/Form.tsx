@@ -45,7 +45,6 @@ const Form: FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     createUserAction(user, dispatch);
     setUser({ name: "" });
   };
