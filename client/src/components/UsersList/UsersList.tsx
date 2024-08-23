@@ -1,42 +1,25 @@
-import { FC, useEffect, useState } from "react";
-import { UserType } from "../../types/user";
-import { getUsers } from "../../services/user";
-import { toast } from "react-toastify";
+import { FC } from "react";
+import { useUserContext } from "../../hooks/useUserContext";
 import style from "./UsersList.module.scss";
 
 const UsersList: FC = () => {
-  const [users, setUsers] = useState<UserType[] | undefined>([]);
-  const [loading, setLoading] = useState(true);
-
-  console.log("users:", users);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-
-      try {
-        const { data } = await getUsers();
-
-        if (data?.users) {
-          setUsers(data.users);
-        }
-      } catch (error) {
-        console.error((error as Error).message);
-        toast.error("Failed to fetch users");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  const { state } = useUserContext();
+  const { error, users, loading } = state;
 
   if (loading) {
     return <h2>Loading...</h2>;
   }
 
-  if (users?.length === 0) {
-    return <div>No users found</div>;
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (users === null) {
+    return <p>No users available.</p>;
+  }
+
+  if (users.length === 0) {
+    return <p>No users found.</p>;
   }
 
   return (

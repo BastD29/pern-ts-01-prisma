@@ -1,6 +1,7 @@
 import { RouteObject } from "react-router-dom";
 import Layout from "../components/layouts/Layout/Layout";
 import { Home, NotFound, Store } from "./routes";
+import { UserProvider } from "../contexts/user";
 
 const routes: RouteObject[] = [
   {
@@ -10,7 +11,11 @@ const routes: RouteObject[] = [
       { path: "", element: <Home /> },
       {
         path: "store",
-        element: <Store />,
+        element: (
+          <UserProvider>
+            <Store />
+          </UserProvider>
+        ),
       },
     ],
   },

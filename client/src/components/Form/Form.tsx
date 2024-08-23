@@ -2,12 +2,16 @@ import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { createUser } from "../../services/user";
 import { toast } from "react-toastify";
 import { UserType } from "../../types/user";
+import { useUserContext } from "../../hooks/useUserContext";
+import { FETCH_USERS_SUCCESS } from "../../constants/actions";
 import style from "./Form.module.scss";
 
 const Form: FC = () => {
   const [user, setUser] = useState<UserType>({
     name: "",
   });
+
+  const { dispatch, state } = useUserContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({
@@ -24,6 +28,12 @@ const Form: FC = () => {
 
       if (data?.user) {
         toast.success(data.message || "User created");
+
+        dispatch({
+          type: FETCH_USERS_SUCCESS,
+          payload: [...(state.users || []), data.user],
+        });
+
         setUser({ name: "" });
       }
     } catch (error) {
