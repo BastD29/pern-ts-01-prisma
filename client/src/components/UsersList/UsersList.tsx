@@ -1,14 +1,20 @@
 import { FC } from "react";
 import { useUserContext } from "../../hooks/useUserContext";
 import { deleteUserAction } from "../../actions/user";
+import { useNavigate } from "react-router-dom";
 import style from "./UsersList.module.scss";
 
 const UsersList: FC = () => {
   const { state, dispatch } = useUserContext();
   const { error, users, loading } = state;
+  const navigate = useNavigate();
 
   const handleDelete = (id: string) => {
     deleteUserAction(id, dispatch);
+  };
+
+  const handleEdit = (id: string) => {
+    navigate(`edit/${id}`);
   };
 
   if (loading) {
@@ -34,6 +40,9 @@ const UsersList: FC = () => {
           <h3>{user.name}</h3>
           <button onClick={() => handleDelete(user.id?.toString() || "")}>
             Delete user
+          </button>
+          <button onClick={() => handleEdit(user.id?.toString() || "")}>
+            Edit User
           </button>
         </div>
       ))}
