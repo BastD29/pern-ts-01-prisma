@@ -87,7 +87,7 @@ const deleteUserAction = async (
     const { data } = await deleteUser(id);
 
     if (data?.message) {
-      dispatch({ type: DELETE_USER_SUCCESS, payload: data.message });
+      dispatch({ type: DELETE_USER_SUCCESS, payload: id });
       toast.success(data.message || "User deleted");
     }
   } catch (error) {

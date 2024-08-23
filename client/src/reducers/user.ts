@@ -49,7 +49,7 @@ const reducer = (
       return {
         ...state,
         loading: false,
-        users: [...(state.users || []), action.payload], // Add new user to the list
+        users: [...(state.users || []), action.payload],
       };
 
     case UPDATE_USER_SUCCESS:
