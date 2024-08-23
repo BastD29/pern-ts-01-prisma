@@ -15,7 +15,7 @@ import { initialState, reducer } from "../reducers/user";
 // } from "../constants/actions";
 // import { getUsers } from "../services/user";
 // import { toast } from "react-toastify";
-import { fetchUsers } from "../actions/user";
+import { fetchUsersAction } from "../actions/user";
 
 type UserContextType = {
   state: UserStateType;
@@ -54,7 +54,7 @@ const UserProvider: FC<UserProviderPropsType> = ({ children }) => {
   // }, [dispatch]);
 
   useEffect(() => {
-    fetchUsers(dispatch);
+    fetchUsersAction(dispatch);
   }, [dispatch]);
 
   return (

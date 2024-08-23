@@ -1,9 +1,10 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { createUser } from "../../services/user";
-import { toast } from "react-toastify";
+// import { createUser } from "../../services/user";
+// import { toast } from "react-toastify";
+// import { FETCH_USERS_SUCCESS } from "../../constants/actions";
 import { UserType } from "../../types/user";
 import { useUserContext } from "../../hooks/useUserContext";
-import { FETCH_USERS_SUCCESS } from "../../constants/actions";
+import { createUserAction } from "../../actions/user";
 import style from "./Form.module.scss";
 
 const Form: FC = () => {
@@ -11,7 +12,7 @@ const Form: FC = () => {
     name: "",
   });
 
-  const { dispatch, state } = useUserContext();
+  const { dispatch /* , state */ } = useUserContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({
@@ -20,26 +21,33 @@ const Form: FC = () => {
     });
   };
 
+  // const handleSubmit = async (e: FormEvent) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const { data } = await createUser({ name: user.name });
+
+  //     if (data?.user) {
+  //       dispatch({
+  //         type: FETCH_USERS_SUCCESS,
+  //         payload: [...(state.users || []), data.user],
+  //       });
+
+  //       toast.success(data.message || "User created");
+
+  //       setUser({ name: "" });
+  //     }
+  //   } catch (error) {
+  //     console.error((error as Error).message);
+  //     toast.error("Failed to create user");
+  //   }
+  // };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    try {
-      const { data } = await createUser({ name: user.name });
-
-      if (data?.user) {
-        toast.success(data.message || "User created");
-
-        dispatch({
-          type: FETCH_USERS_SUCCESS,
-          payload: [...(state.users || []), data.user],
-        });
-
-        setUser({ name: "" });
-      }
-    } catch (error) {
-      console.error((error as Error).message);
-      toast.error("Failed to create user");
-    }
+    createUserAction(user, dispatch);
+    setUser({ name: "" });
   };
 
   return (
