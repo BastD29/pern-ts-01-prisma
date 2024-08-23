@@ -35,6 +35,10 @@ const UsersList: FC = () => {
     return <h2>Loading...</h2>;
   }
 
+  if (users?.length === 0) {
+    return <div>No users found</div>;
+  }
+
   return (
     <div className={style["users-list"]}>
       {users?.map((user) => (
