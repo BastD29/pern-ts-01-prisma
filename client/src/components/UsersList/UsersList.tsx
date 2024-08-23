@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { UserType } from "../../types/user";
 import { getUsers } from "../../services/user";
+import { toast } from "react-toastify";
 import style from "./UsersList.module.scss";
 
 const UsersList: FC = () => {
@@ -15,13 +16,13 @@ const UsersList: FC = () => {
 
       try {
         const { data } = await getUsers();
-        console.log("data:", data);
 
         if (data?.users) {
           setUsers(data.users);
         }
       } catch (error) {
         console.error((error as Error).message);
+        toast.error("Failed to fetch users");
       } finally {
         setLoading(false);
       }
